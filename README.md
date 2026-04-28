@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/screenshots/netheos-logo.png" alt="Netheos" width="160"/>
+</p>
+
 # Netheos
 
 **Real-time Kubernetes observability with eBPF network capture, interactive topology UI, and an embedded AI Assistant — running entirely inside your cluster.**
