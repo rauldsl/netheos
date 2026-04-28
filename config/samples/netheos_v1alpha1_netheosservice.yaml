@@ -1,0 +1,12 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosService
+metadata:
+  name: frontend-tracking
+  namespace: default
+spec:
+  serviceRef: frontend
+  namespace: default
+  displayName: "Frontend Service"
+  latencyThresholdMs: 150
+  retransmitThresholdPct: 5
+  tags: [critical, customer-facing]

@@ -1,0 +1,34 @@
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: netheos-catalog
+  namespace: olm
+spec:
+  sourceType: grpc
+  image: ghcr.io/netheos-io/netheos-catalog:latest
+  displayName: Netheos Operator
+  publisher: Netheos
+  updateStrategy:
+    registryPoll:
+      interval: 10m
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: netheos-operatorgroup
+  namespace: netheos-system
+spec:
+  targetNamespaces: []
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: netheos
+  namespace: netheos-system
+spec:
+  channel: alpha
+  name: netheos
+  source: netheos-catalog
+  sourceNamespace: olm
+  installPlanApproval: Automatic

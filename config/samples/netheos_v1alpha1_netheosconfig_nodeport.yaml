@@ -1,0 +1,22 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosConfig
+metadata:
+  name: cluster
+spec:
+  namespace: netheos-system
+  aiAssistant:
+    provider: ollama
+    model: "llama3.2:8b"
+  agent:
+    sampleRate: 1
+    dnsTracking: true
+    firewallTracking: true
+  aggregator:
+    replicas: 1
+    retentionWindow: "1h"
+  webUI:
+    serviceType: NodePort
+    nodePort: 30080
+  rbac:
+    tenantLabelKey: "netheos.netheos-io.io/tenant"
+  audit: true

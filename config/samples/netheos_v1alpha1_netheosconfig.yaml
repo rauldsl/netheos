@@ -1,0 +1,29 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosConfig
+metadata:
+  name: cluster
+spec:
+  namespace: netheos-system
+  aiAssistant:
+    provider: ollama
+    model: "llama3.2:8b"
+    gpuEnabled: false
+    resources:
+      cpuRequest: "500m"
+      cpuLimit: "2"
+      memoryRequest: "4Gi"
+      memoryLimit: "8Gi"
+  agent:
+    sampleRate: 1
+    dnsTracking: true
+    firewallTracking: true
+  aggregator:
+    replicas: 1
+    retentionWindow: "1h"
+    prometheusExport: true
+  webUI:
+    serviceType: ClusterIP
+  rbac:
+    tenantLabelKey: "netheos.netheos-io.io/tenant"
+    adminGroups: ["cluster-admins"]
+  audit: true

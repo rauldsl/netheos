@@ -1,0 +1,9 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosInsight
+metadata:
+  name: network-summary
+  namespace: default
+spec:
+  query: "Summarize the network health of the default namespace."
+  schedule: "*/30 * * * *"
+  namespaces: [default]

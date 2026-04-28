@@ -1,0 +1,13 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosAlert
+metadata:
+  name: high-latency
+  namespace: default
+spec:
+  metric: latency_p99_ms
+  operator: Gt
+  threshold: 200
+  for: "2m"
+  severity: warning
+  selector:
+    app: my-service
