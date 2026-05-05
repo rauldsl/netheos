@@ -7,6 +7,7 @@
 **Real-time Kubernetes observability with eBPF network capture, interactive topology UI, and an embedded AI Assistant — running entirely inside your cluster.**
 
 [![OLM](https://img.shields.io/badge/OLM-v0.1.0-blue)](https://operatorhub.io/operator/netheos)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/netheos)](https://artifacthub.io/packages/helm/netheos/netheos)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
 [![Kubernetes](https://img.shields.io/badge/kubernetes-1.27%2B-326CE5)](https://kubernetes.io)
 
@@ -40,6 +41,35 @@
 - **Multi-cluster federation** — Federate multiple clusters into a single dashboard
 - **Prometheus integration** — ServiceMonitor included out of the box
 - **Privacy first** — All data and AI inference run entirely inside your cluster
+
+---
+
+## Quick Start (Helm)
+
+```bash
+helm repo add netheos https://rauldsl.github.io/netheos
+helm repo update
+helm install netheos netheos/netheos -n netheos-system --create-namespace
+```
+
+Access the UI:
+
+```bash
+kubectl port-forward -n netheos-system svc/netheos-webui 8080:8080
+# → http://localhost:8080
+```
+
+**Custom values** (AI provider, service type, etc.):
+
+```bash
+helm install netheos netheos/netheos \
+  -n netheos-system --create-namespace \
+  --set netheos.aiAssistant.provider=openai \
+  --set netheos.aiAssistant.model=gpt-4o \
+  --set netheos.aiAssistant.apiKeySecret.name=openai-credentials \
+  --set netheos.aiAssistant.apiKeySecret.key=api-key \
+  --set netheos.webUI.serviceType=LoadBalancer
+```
 
 ---
 
