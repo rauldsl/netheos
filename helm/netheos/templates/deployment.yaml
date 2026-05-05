@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netheos-operator
+  namespace: {{ .Values.netheos.namespace }}
+  labels:
+    app: netheos-operator
+    control-plane: controller-manager
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/name: netheos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netheos-operator
+      control-plane: controller-manager
+  template:
+    metadata:
+      labels:
+        app: netheos-operator
+        control-plane: controller-manager
+    spec:
+      serviceAccountName: netheos-operator
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - name: manager
+        image: "{{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag }}"
+        imagePullPolicy: {{ .Values.operator.image.pullPolicy }}
+        command:
+        - /manager
+        args:
+        - --leader-elect
+        env:
+        - name: WATCH_NAMESPACE
+          value: ""
+        ports:
+        - name: metrics
+          containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          {{- toYaml .Values.operator.resources | nindent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false

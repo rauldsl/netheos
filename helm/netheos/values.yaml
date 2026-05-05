@@ -1,0 +1,35 @@
+operator:
+  image:
+    repository: ghcr.io/rauldsl/netheos-operator
+    tag: "v0.1.0"
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+netheos:
+  namespace: netheos-system
+  aiAssistant:
+    provider: ollama       # ollama | openai | anthropic | azure | none
+    model: "llama3.2:8b"
+    gpuEnabled: false
+    apiKeySecret:
+      name: ""
+      key: ""
+  agent:
+    sampleRate: 1
+    dnsTracking: true
+    firewallTracking: true
+  aggregator:
+    replicas: 1
+    retentionWindow: "1h"
+  webUI:
+    serviceType: ClusterIP  # ClusterIP | NodePort | LoadBalancer
+  audit: true
+
+crds:
+  install: true

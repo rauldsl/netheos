@@ -1,0 +1,26 @@
+apiVersion: netheos.netheos-io.io/v1alpha1
+kind: NetheosConfig
+metadata:
+  name: cluster
+  namespace: {{ .Values.netheos.namespace }}
+spec:
+  namespace: {{ .Values.netheos.namespace }}
+  aiAssistant:
+    provider: {{ .Values.netheos.aiAssistant.provider }}
+    model: {{ .Values.netheos.aiAssistant.model | quote }}
+    gpuEnabled: {{ .Values.netheos.aiAssistant.gpuEnabled }}
+    {{- if .Values.netheos.aiAssistant.apiKeySecret.name }}
+    apiKeySecret:
+      name: {{ .Values.netheos.aiAssistant.apiKeySecret.name }}
+      key: {{ .Values.netheos.aiAssistant.apiKeySecret.key }}
+    {{- end }}
+  agent:
+    sampleRate: {{ .Values.netheos.agent.sampleRate }}
+    dnsTracking: {{ .Values.netheos.agent.dnsTracking }}
+    firewallTracking: {{ .Values.netheos.agent.firewallTracking }}
+  aggregator:
+    replicas: {{ .Values.netheos.aggregator.replicas }}
+    retentionWindow: {{ .Values.netheos.aggregator.retentionWindow | quote }}
+  webUI:
+    serviceType: {{ .Values.netheos.webUI.serviceType }}
+  audit: {{ .Values.netheos.audit }}

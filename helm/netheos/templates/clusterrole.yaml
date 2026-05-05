@@ -1,0 +1,38 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: netheos-operator
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/name: netheos
+rules:
+- apiGroups: [""]
+  resources: [nodes, pods, namespaces, services, endpoints, configmaps, serviceaccounts, secrets]
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [apps]
+  resources: [deployments, daemonsets, replicasets, statefulsets]
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [netheos.netheos-io.io]
+  resources:
+  - netheosconfigs
+  - netheosconfigs/status
+  - netheosconfigs/finalizers
+  - netheosalerts
+  - netheosalerts/status
+  - netheosinsights
+  - netheosinsights/status
+  - netheosservices
+  - netheosservices/status
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [rbac.authorization.k8s.io]
+  resources: [clusterroles, clusterrolebindings, roles, rolebindings]
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [monitoring.coreos.com]
+  resources: [servicemonitors]
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [coordination.k8s.io]
+  resources: [leases]
+  verbs: [get, list, watch, create, update, patch, delete]
+- apiGroups: [""]
+  resources: [events]
+  verbs: [create, patch]
