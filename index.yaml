@@ -1,0 +1,34 @@
+apiVersion: v1
+entries:
+  netheos:
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: ""
+        url: ""
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2026-05-05T09:21:49.899797-05:00"
+    description: Real-time Kubernetes observability with eBPF network capture, interactive
+      topology UI, and an embedded AI Assistant running entirely inside your cluster.
+    digest: c45d00d53cc4334c2b83ee48e3f404db59cb88714e935dfcc6b9479c281ecf39
+    home: https://github.com/rauldsl/netheos
+    icon: https://raw.githubusercontent.com/rauldsl/netheos/main/docs/screenshots/netheos-logo.png
+    keywords:
+    - kubernetes
+    - observability
+    - ebpf
+    - networking
+    - ai
+    - topology
+    maintainers:
+    - email: me@rauldsl.com
+      name: Raul Leite
+    name: netheos
+    sources:
+    - https://github.com/rauldsl/netheos
+    type: application
+    urls:
+    - https://rauldsl.github.io/netheos/netheos-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-05-05T09:21:49.899519-05:00"
